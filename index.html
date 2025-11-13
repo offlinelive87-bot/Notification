@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusDock</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f5f5f5;
+    }
+
+    #notification-panel {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 300px;
+      z-index: 999;
+    }
+
+    .notification {
+      background: #fff;
+      border-left: 5px solid #007bff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .notification button {
+      margin-right: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .notification button:hover {
+      background: #0056b3;
+    }
+
+    .notification button:last-child {
+      background: #dc3545;
+    }
+
+    .notification button:last-child:hover {
+      background: #c82333;
+    }
+
+    #add-test-btn {
+      padding: 1rem 2rem;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #add-test-btn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div id="notification-panel"></div>
+
+  <button id="add-test-btn" onclick="addTestNotification()">Add Test Notification</button>
+
+  <script>
+    let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    function renderNotifications() {
+      const panel = document.getElementById('notification-panel');
+      panel.innerHTML = '';
+
+      notifications.forEach((note, index) => {
+        const div = document.createElement('div');
+        div.className = 'notification';
+        div.innerHTML = `
+          <strong>${note.title}</strong><br/>
+          ${note.message}<br/>
+          <button onclick="handleAction(${index})">Mark Done</button>
+          <button onclick="dismissNotification(${index})">Dismiss</button>
+        `;
+        panel.appendChild(div);
+      });
+    }
+
+    function addTestNotification() {
+      notifications.push({
+        title: 'Reminder',
+        message: 'Take your medicine at 9PM'
+      });
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      renderNotifications();
+    }
+
+    function handleAction(index) {
+      alert(`Action taken for: ${notifications[index].title}`);
+      dismissNotification(index);
+    }
+
+    function dismissNotification(index) {
+      notifications.splice(index, 1);
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      renderNotifications();
+    }
+
+    renderNotifications();
+  </script>
+</body>
+</html>
