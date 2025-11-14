@@ -1,131 +1,1050 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FocusDock</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 1rem;
-      background: #f5f5f5;
-    }
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='65' font-size='60' text-anchor='middle' fill='white'%3E🎓%3C/text%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='url(%23grad)'/%3E%3Ctext x='90' y='120' font-size='100' text-anchor='middle' fill='white'%3E🎓%3C/text%3E%3C/svg%3E" />
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVGVhY2hlckh1YiIsInNob3J0X25hbWUiOiJUZWFjaGVySHViIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTkyIDE5MiclM0UlM0NkZWZzJTNFJTNDbGluZWFyR3JhZGllbnQgaWQ9J2dyYWQnIHgxPScwJTI1JyB5MT0nMCUyNScgeDI9JzEwMCUyNScgeTI9JzEwMCUyNSclM0UlM0NzdG9wIG9mZnNldD0nMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzNjY3ZWVhO3N0b3Atb3BhY2l0eToxJyAvJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzNzY0YmEyO3N0b3Atb3BhY2l0eToxJyAvJTNFJTNDL2xpbmVhckdyYWRpZW50JTNFJTNDL2RlZnMlM0UlM0NyZWN0IHdpZHRoPScxOTInIGhlaWdodD0nMTkyJyByeD0nNDAnIGZpbGw9J3VybCglMjNncmFkKScvJTNFJTNDdGV4dCB4PSc5NicgeT0nMTMwJyBmb250LXNpemU9JzEyMCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnJTNFJUYwJTlGJThFJTkzJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJzaXplcyI6IjE5MngxOTIifSx7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMiclM0UlM0NkZWZzJTNFJTNDbGluZWFyR3JhZGllbnQgaWQ9J2dyYWQnIHgxPScwJTI1JyB5MT0nMCUyNScgeDI9JzEwMCUyNScgeTI9JzEwMCUyNSclM0UlM0NzdG9wIG9mZnNldD0nMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzNjY3ZWVhO3N0b3Atb3BhY2l0eToxJyAvJTNFJTNDc3RvcCBvZmZzZXQ9JzEwMCUyNScgc3R5bGU9J3N0b3AtY29sb3I6JTIzNzY0YmEyO3N0b3Atb3BhY2l0eToxJyAvJTNFJTNDL2xpbmVhckdyYWRpZW50JTNFJTNDL2RlZnMlM0UlM0NyZWN0IHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyByeD0nMTAwJyBmaWxsPSd1cmwoJTIzZ3JhZCknLyUzRSUzQ3RleHQgeD0nMjU2JyB5PSczNTAnIGZvbnQtc2l6ZT0nMzIwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSd3aGl0ZSclM0UlRjAlOUYlOEUlOTMlM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCIsInNpemVzIjoiNTEyeDUxMiJ9XSwidGhlbWVfY29sb3IiOiIjNjY3ZWVhIiwiYmFja2dyb3VuZF9jb2xvciI6IiM2NjdlZWEiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii8ifQ==" />
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TeacherHub">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeacherHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    #notification-panel {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      width: 300px;
-      z-index: 999;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .notification {
-      background: #fff;
-      border-left: 5px solid #007bff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 4px;
-      animation: slideIn 0.3s ease-out;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
 
-    .notification button {
-      margin-right: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
 
-    .notification button:hover {
-      background: #0056b3;
-    }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
 
-    .notification button:last-child {
-      background: #dc3545;
-    }
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
 
-    .notification button:last-child:hover {
-      background: #c82333;
-    }
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3em;
+            transition: all 0.3s;
+        }
 
-    #add-test-btn {
-      padding: 1rem 2rem;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
 
-    #add-test-btn:hover {
-      background: #218838;
-    }
-  </style>
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .profile-photo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #667eea;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+        }
+
+        #profileUpload {
+            display: none;
+        }
+
+        .upload-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .upload-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5576c;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        /* Index Summary */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 25px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        .summary-card h4 {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .summary-card p {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        /* Currency Section */
+        .currency-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .currency-container select,
+        .currency-container input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            min-width: 150px;
+        }
+
+        /* Reminder Section */
+        .reminder-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .reminder-form input,
+        .reminder-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .reminder-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .reminder-list {
+            margin-top: 20px;
+        }
+
+        .reminder-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reminder-item-content h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .reminder-item-content p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        /* Donate Section */
+        .donate-box {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+
+        .donate-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .donate-link {
+            background: white;
+            color: #19547b;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .donate-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            display: none;
+            animation: slideIn 0.5s;
+        }
+
+        .notification.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .header-buttons {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .currency-container {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="notification-panel"></div>
+    <div class="container">
+        <div class="dashboard">
+            <div class="header">
+                <h1>🎓 TeacherHub</h1>
+                <p>Manage your classroom efficiently</p>
+            </div>
 
-  <button id="add-test-btn" onclick="addTestNotification()">Add Test Notification</button>
+            <div class="content">
+                <!-- Profile Section -->
+                <div class="section">
+                    <div class="section-title">👤 Profile</div>
+                    <div class="profile-container">
+                        <div class="profile-photo-wrapper">
+                            <img id="profilePhoto" class="profile-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23667eea' width='120' height='120'/%3E%3Ctext x='50%25' y='50%25' font-size='50' fill='white' text-anchor='middle' dy='.3em'%3E👤%3C/text%3E%3C/svg%3E" alt="Profile Picture" />
+                            <input type="file" id="profileUpload" accept="image/*" />
+                            <label for="profileUpload" class="upload-icon" title="Upload Profile Picture">📷</label>
+                        </div>
+                        <div class="profile-info">
+                            <input type="text" id="teacherName" placeholder="Teacher Name" value="Ms. Sarah Johnson">
+                            <input type="text" id="schoolName" placeholder="School Name" value="Greenwood High School">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-top: 5px; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="color: #666; font-size: 0.9em;">Save Data</span>
+                                    <span style="cursor: pointer; font-size: 1.2em;" onclick="openSaveModal()" title="Save Data">💾</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="color: #666; font-size: 0.9em;">Share App</span>
+                                    <span style="cursor: pointer; font-size: 1.2em;" onclick="shareApp()" title="Share App">📤</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="color: #666; font-size: 0.9em;">Reset Profile</span>
+                                    <span style="cursor: pointer; font-size: 1.2em;" onclick="resetProfile()" title="Reset Profile">🔄</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-  <script>
-    let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+                <!-- Index Summary -->
+                <div class="section">
+                    <div class="section-title" style="justify-content: space-between; align-items: center;">
+                        <span>📊 Index Summary</span>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span style="cursor: pointer; font-size: 1em;" onclick="shareSummary()" title="Share Summary">📤</span>
+                            <span style="cursor: pointer; font-size: 1em;" onclick="clearSummary()" title="Clear Summary">🗑️</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px; padding: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <span style="color: #666; font-size: 1em;">Total Students:</span>
+                            <span style="color: #333; font-size: 1.2em; font-weight: bold;" id="studentCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <span style="color: #666; font-size: 1em;">Classes Tomorrow:</span>
+                            <span style="color: #333; font-size: 1.2em; font-weight: bold;" id="classCount">0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                            <span style="color: #666; font-size: 1em;">Total Student Dues:</span>
+                            <span style="color: #333; font-size: 1.2em; font-weight: bold;" id="studentDuesCount">0</span>
+                        </div>
+                    </div>
+                </div>
 
-    function renderNotifications() {
-      const panel = document.getElementById('notification-panel');
-      panel.innerHTML = '';
+                <!-- Tomorrow Classes Section -->
+                <div class="section">
+                    <div class="section-title">📚 Tomorrow's Classes</div>
+                    <div class="reminder-form">
+                        <input type="text" id="subjectName" placeholder="Subject Name (e.g., Mathematics)">
+                        <div class="currency-container">
+                            <input type="time" id="classTime" placeholder="Class Time">
+                            <input type="number" id="classDuration" placeholder="Duration (minutes)" value="60" min="15" max="240">
+                        </div>
+                        <input type="text" id="classRoom" placeholder="Room/Location (optional)">
+                        <textarea id="classNote" placeholder="Notes (e.g., Topic, Materials needed)"></textarea>
+                        <button class="btn" onclick="addTomorrowClass()">➕ Add Class</button>
+                    </div>
+                    <div class="reminder-list" id="tomorrowClassList"></div>
+                </div>
 
-      notifications.forEach((note, index) => {
-        const div = document.createElement('div');
-        div.className = 'notification';
-        div.innerHTML = `
-          <strong>${note.title}</strong><br/>
-          ${note.message}<br/>
-          <button onclick="handleAction(${index})">Mark Done</button>
-          <button onclick="dismissNotification(${index})">Dismiss</button>
-        `;
-        panel.appendChild(div);
-      });
-    }
+                <!-- Student Due Management -->
+                <div class="section">
+                    <div class="section-title">💰 Student Fee Due Management</div>
+                    <div class="reminder-form">
+                        <input type="text" id="studentName" placeholder="Student Name">
+                        <div class="currency-container">
+                            <select id="currencySelect">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="AUD">AUD - Australian Dollar</option>
+                                <option value="CAD">CAD - Canadian Dollar</option>
+                                <option value="MYR">MYR - Malaysian Ringgit</option>
+                            </select>
+                            <input type="number" id="dueAmount" placeholder="Due Amount" value="0">
+                        </div>
+                        <input type="date" id="dueDate" placeholder="Due Date">
+                        <textarea id="dueNote" placeholder="Notes (e.g., Tuition fee, Books, etc.)"></textarea>
+                        <button class="btn" onclick="addStudentDue()">➕ Add Student Due</button>
+                    </div>
+                    <div class="reminder-list" id="studentDueList"></div>
+                </div>
 
-    function addTestNotification() {
-      notifications.push({
-        title: 'Reminder',
-        message: 'Take your medicine at 9PM'
-      });
-      localStorage.setItem('notifications', JSON.stringify(notifications));
-      renderNotifications();
-    }
+                <!-- Reminder Section -->
+                <div class="section">
+                    <div class="section-title">⏰ Reminders</div>
+                    <div class="reminder-form">
+                        <input type="text" id="reminderTitle" placeholder="Reminder Title">
+                        <input type="date" id="reminderDate">
+                        <input type="time" id="reminderTime">
+                        <textarea id="reminderNote" placeholder="Notes (optional)"></textarea>
+                        <button class="btn" onclick="addReminder()">➕ Add Reminder</button>
+                    </div>
+                    <div class="reminder-list" id="reminderList"></div>
+                </div>
 
-    function handleAction(index) {
-      alert(`Action taken for: ${notifications[index].title}`);
-      dismissNotification(index);
-    }
+                <!-- Donate Section -->
+                <div class="section">
+                    <div class="donate-box">
+                        <h3>💝 Support This Application</h3>
+                        <p style="margin-bottom: 20px;">Help us keep this application free and updated!</p>
+                        <a href="https://paypal.me/NoorDevloper2025" target="_blank" class="donate-link">
+                            Donate via PayPal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    function dismissNotification(index) {
-      notifications.splice(index, 1);
-      localStorage.setItem('notifications', JSON.stringify(notifications));
-      renderNotifications();
-    }
+    <!-- Save Modal -->
+    <div id="saveModal" class="modal">
+        <div class="modal-content">
+            <h2>💾 Save Your Data</h2>
+            <p>Your data will be saved locally in your browser. No backend required!</p>
+            <div class="modal-buttons">
+                <button class="btn" onclick="saveData()">Save Now</button>
+                <button class="btn btn-secondary" onclick="closeSaveModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
 
-    renderNotifications();
-  </script>
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Audio for notification -->
+    <audio id="notificationSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIGGS86+ehUhENTKXh8bllHAU2jdXxzn0vBSV7yPDckjwKE2Cy6OyrWBQLR6Hf87tlHgU1h9Tv0IEuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBSh+zPDajzsKFFmw5+2nVBMKTKPi8LloHwU2jNTx0H4xBSV6yO/blEILElyx5+yrWhUIR6Df9L1jHwYzhM/u1IAuBQ==" type="audio/wav">
+    </audio>
+
+    <script>
+        // Data storage in memory
+        let appData = {
+            profile: {
+                name: 'Ms. Sarah Johnson',
+                school: 'Greenwood High School'
+            },
+            summary: {},
+            tomorrowClasses: [],
+            studentDues: [],
+            reminders: []
+        };
+
+        // Profile Photo Handling
+        const profilePhoto = document.getElementById('profilePhoto');
+        const profileUpload = document.getElementById('profileUpload');
+
+        // Load saved image
+        const savedImage = localStorage.getItem('teacherProfileImage');
+        if (savedImage) {
+            profilePhoto.src = savedImage;
+        }
+
+        // Handle upload
+        profileUpload.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePhoto.src = e.target.result;
+                    localStorage.setItem('teacherProfileImage', e.target.result);
+                    showNotification('Profile picture updated!');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please upload a valid image file.');
+            }
+        });
+
+        // Reset Profile Function
+        function resetProfile() {
+            if (confirm('Are you sure you want to reset your profile?')) {
+                document.getElementById('teacherName').value = '';
+                document.getElementById('schoolName').value = '';
+                profilePhoto.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23667eea' width='120' height='120'/%3E%3Ctext x='50%25' y='50%25' font-size='50' fill='white' text-anchor='middle' dy='.3em'%3E👤%3C/text%3E%3C/svg%3E";
+                localStorage.removeItem('teacherProfileImage');
+                showNotification('Profile has been reset!');
+            }
+        }
+
+        // Load data on page load
+        window.onload = function() {
+            loadData();
+            updateTotalStudentsCount();
+            updateTomorrowClassesCount();
+            updateStudentDuesCount();
+            displayTomorrowClasses();
+            displayStudentDues();
+            displayReminders();
+            checkReminders();
+            checkStudentDues();
+            checkTomorrowClasses();
+            setInterval(checkReminders, 60000);
+            setInterval(checkStudentDues, 60000);
+            setInterval(checkTomorrowClasses, 60000);
+        };
+
+        // Summary Functions
+        function clearSummary() {
+            if (confirm('Are you sure you want to clear the summary?')) {
+                appData.summary = {};
+                updateTotalStudentsCount();
+                updateTomorrowClassesCount();
+                document.getElementById('studentDuesCount').textContent = '0';
+                showNotification('Summary cleared!');
+            }
+        }
+
+        function updateTotalStudentsCount() {
+            const uniqueStudents = new Set(appData.studentDues.map(d => d.studentName.trim().toLowerCase()));
+            const count = uniqueStudents.size;
+            document.getElementById('studentCount').textContent = count;
+        }
+
+        function updateTomorrowClassesCount() {
+            const count = appData.tomorrowClasses.length;
+            document.getElementById('classCount').textContent = count;
+        }
+
+        function updateStudentDuesCount() {
+            const unpaidDues = appData.studentDues.filter(d => !d.paid).length;
+            document.getElementById('studentDuesCount').textContent = unpaidDues;
+        }
+
+        function shareSummary() {
+            const unpaidDues = appData.studentDues.filter(d => !d.paid).length;
+            const summary = `📊 TeacherHub - Index Summary
+            
+Total Students: ${document.getElementById('studentCount').textContent}
+Classes Tomorrow: ${document.getElementById('classCount').textContent}
+Total Student Dues: ${unpaidDues}
+
+Teacher: ${document.getElementById('teacherName').value}
+School: ${document.getElementById('schoolName').value}`;
+
+            const shareData = {
+                title: 'TeacherHub Summary',
+                text: summary
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).then(() => {
+                    showNotification('Summary shared successfully!');
+                }).catch(() => {
+                    fallbackShareSummary(summary);
+                });
+            } else {
+                fallbackShareSummary(summary);
+            }
+        }
+
+        function fallbackShareSummary(summary) {
+            navigator.clipboard.writeText(summary).then(() => {
+                showNotification('Summary copied to clipboard!');
+            }).catch(() => {
+                alert(summary);
+            });
+        }
+
+        // Tomorrow Classes Functions
+        function addTomorrowClass() {
+            const subjectName = document.getElementById('subjectName').value;
+            const classTime = document.getElementById('classTime').value;
+            const duration = document.getElementById('classDuration').value;
+            const room = document.getElementById('classRoom').value;
+            const note = document.getElementById('classNote').value;
+
+            if (!subjectName || !classTime || !duration) {
+                alert('Please fill in subject name, time, and duration!');
+                return;
+            }
+
+            const classItem = {
+                id: Date.now(),
+                subject: subjectName,
+                time: classTime,
+                duration: duration,
+                room: room,
+                note: note,
+                notified: false
+            };
+
+            appData.tomorrowClasses.push(classItem);
+            appData.tomorrowClasses.sort((a, b) => a.time.localeCompare(b.time));
+            displayTomorrowClasses();
+            updateTomorrowClassesCount();
+            
+            document.getElementById('subjectName').value = '';
+            document.getElementById('classTime').value = '';
+            document.getElementById('classDuration').value = '60';
+            document.getElementById('classRoom').value = '';
+            document.getElementById('classNote').value = '';
+
+            showNotification('Class added successfully!');
+        }
+
+        function deleteTomorrowClass(id) {
+            appData.tomorrowClasses = appData.tomorrowClasses.filter(c => c.id !== id);
+            displayTomorrowClasses();
+            updateTomorrowClassesCount();
+            showNotification('Class deleted!');
+        }
+
+        function displayTomorrowClasses() {
+            const list = document.getElementById('tomorrowClassList');
+            if (appData.tomorrowClasses.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">No classes scheduled for tomorrow</p>';
+                return;
+            }
+
+            list.innerHTML = appData.tomorrowClasses.map(c => {
+                const endTime = calculateEndTime(c.time, c.duration);
+                return `
+                    <div class="reminder-item" style="border-left: 4px solid #667eea;">
+                        <div class="reminder-item-content">
+                            <h4>📖 ${c.subject}</h4>
+                            <p>⏰ ${c.time} - ${endTime} (${c.duration} mins)</p>
+                            ${c.room ? `<p>📍 ${c.room}</p>` : ''}
+                            ${c.note ? `<p>📝 ${c.note}</p>` : ''}
+                        </div>
+                        <button class="delete-btn" onclick="deleteTomorrowClass(${c.id})">Delete</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function calculateEndTime(startTime, duration) {
+            const [hours, minutes] = startTime.split(':').map(Number);
+            const totalMinutes = hours * 60 + minutes + parseInt(duration);
+            const endHours = Math.floor(totalMinutes / 60) % 24;
+            const endMinutes = totalMinutes % 60;
+            return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
+        }
+
+        function checkTomorrowClasses() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            
+            appData.tomorrowClasses.forEach(classItem => {
+                if (!classItem.notified && currentHour >= 18) {
+                    classItem.notified = true;
+                    showNotification(`📚 Tomorrow: ${classItem.subject} at ${classItem.time} for ${classItem.duration} mins`, true);
+                }
+            });
+        }
+
+        // Student Due Functions
+        function addStudentDue() {
+            const studentName = document.getElementById('studentName').value;
+            const currency = document.getElementById('currencySelect').value;
+            const amount = document.getElementById('dueAmount').value;
+            const dueDate = document.getElementById('dueDate').value;
+            const note = document.getElementById('dueNote').value;
+
+            if (!studentName || !amount || !dueDate) {
+                alert('Please fill in student name, amount, and due date!');
+                return;
+            }
+
+            const studentDue = {
+                id: Date.now(),
+                studentName: studentName,
+                currency: currency,
+                amount: amount,
+                dueDate: dueDate,
+                note: note,
+                notified: false,
+                paid: false
+            };
+
+            appData.studentDues.push(studentDue);
+            displayStudentDues();
+            updateTotalStudentsCount();
+            
+            document.getElementById('studentName').value = '';
+            document.getElementById('dueAmount').value = '0';
+            document.getElementById('dueDate').value = '';
+            document.getElementById('dueNote').value = '';
+
+            showNotification('Student due added successfully!');
+        }
+
+        function deleteStudentDue(id) {
+            appData.studentDues = appData.studentDues.filter(d => d.id !== id);
+            displayStudentDues();
+            updateTotalStudentsCount();
+            showNotification('Student due deleted!');
+        }
+
+        function markAsPaid(id) {
+            const due = appData.studentDues.find(d => d.id === id);
+            if (due) {
+                due.paid = true;
+                displayStudentDues();
+                updateStudentDuesCount();
+                showNotification('Marked as paid!');
+            }
+        }
+
+        function displayStudentDues() {
+            const list = document.getElementById('studentDueList');
+            if (appData.studentDues.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">No student dues yet</p>';
+                updateStudentDuesCount();
+                return;
+            }
+
+            list.innerHTML = appData.studentDues.map(d => {
+                const isPaid = d.paid;
+                const isOverdue = new Date(d.dueDate) < new Date() && !isPaid;
+                const statusColor = isPaid ? '#4CAF50' : (isOverdue ? '#ff4444' : '#667eea');
+                const statusText = isPaid ? '✓ Paid' : (isOverdue ? '⚠️ Overdue' : '⏳ Pending');
+                
+                return `
+                    <div class="reminder-item" style="border-left: 4px solid ${statusColor};">
+                        <div class="reminder-item-content">
+                            <h4>${d.studentName} ${isPaid ? '<span style="color: #4CAF50;">(Paid)</span>' : ''}</h4>
+                            <p>💰 ${d.currency} ${d.amount}</p>
+                            <p>📅 Due Date: ${d.dueDate} - ${statusText}</p>
+                            ${d.note ? `<p>📝 ${d.note}</p>` : ''}
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-direction: column;">
+                            ${!isPaid ? `<button class="btn" style="padding: 8px 15px; font-size: 0.9em;" onclick="markAsPaid(${d.id})">Mark Paid</button>` : ''}
+                            <button class="delete-btn" onclick="deleteStudentDue(${d.id})">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            updateStudentDuesCount();
+        }
+
+        function checkStudentDues() {
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+            appData.studentDues.forEach(due => {
+                if (!due.notified && !due.paid) {
+                    if (due.dueDate === today) {
+                        due.notified = true;
+                        showNotification(`⚠️ TODAY: ${due.studentName}'s fee of ${due.currency} ${due.amount} is due!`, true);
+                    } else if (due.dueDate === tomorrowStr) {
+                        showNotification(`📢 TOMORROW: ${due.studentName}'s fee of ${due.currency} ${due.amount} will be due!`, true);
+                    }
+                    
+                    if (new Date(due.dueDate) < new Date(today)) {
+                        showNotification(`🚨 OVERDUE: ${due.studentName}'s fee of ${due.currency} ${due.amount} is overdue!`, true);
+                    }
+                }
+            });
+        }
+
+        // Reminder Functions
+        function addReminder() {
+            const title = document.getElementById('reminderTitle').value;
+            const date = document.getElementById('reminderDate').value;
+            const time = document.getElementById('reminderTime').value;
+            const note = document.getElementById('reminderNote').value;
+
+            if (!title || !date || !time) {
+                alert('Please fill in title, date, and time!');
+                return;
+            }
+
+            const reminder = {
+                id: Date.now(),
+                title: title,
+                date: date,
+                time: time,
+                note: note,
+                notified: false
+            };
+
+            appData.reminders.push(reminder);
+            displayReminders();
+            
+            document.getElementById('reminderTitle').value = '';
+            document.getElementById('reminderDate').value = '';
+            document.getElementById('reminderTime').value = '';
+            document.getElementById('reminderNote').value = '';
+
+            showNotification('Reminder added successfully!');
+        }
+
+        function deleteReminder(id) {
+            appData.reminders = appData.reminders.filter(r => r.id !== id);
+            displayReminders();
+            showNotification('Reminder deleted!');
+        }
+
+        function displayReminders() {
+            const list = document.getElementById('reminderList');
+            if (appData.reminders.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">No reminders yet</p>';
+                return;
+            }
+
+            list.innerHTML = appData.reminders.map(r => `
+                <div class="reminder-item">
+                    <div class="reminder-item-content">
+                        <h4>${r.title}</h4>
+                        <p>📅 ${r.date} ⏰ ${r.time}</p>
+                        ${r.note ? `<p>📝 ${r.note}</p>` : ''}
+                    </div>
+                    <button class="delete-btn" onclick="deleteReminder(${r.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function checkReminders() {
+            const now = new Date();
+            const currentDate = now.toISOString().split('T')[0];
+            const currentTime = now.toTimeString().slice(0, 5);
+
+            appData.reminders.forEach(reminder => {
+                if (!reminder.notified && reminder.date === currentDate && reminder.time === currentTime) {
+                    reminder.notified = true;
+                    showNotification(`⏰ Reminder: ${reminder.title}`, true);
+                }
+            });
+        }
+
+        // Save/Load Functions
+        function openSaveModal() {
+            document.getElementById('saveModal').classList.add('active');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveModal').classList.remove('active');
+        }
+
+        function saveData() {
+            appData.profile.name = document.getElementById('teacherName').value;
+            appData.profile.school = document.getElementById('schoolName').value;
+
+            const dataStr = JSON.stringify(appData);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'teacherhub_data.json';
+            link.click();
+            
+            closeSaveModal();
+            showNotification('Data saved successfully! File downloaded.');
+        }
+
+        function loadData() {
+            document.getElementById('teacherName').value = appData.profile.name;
+            document.getElementById('schoolName').value = appData.profile.school;
+            updateTotalStudentsCount();
+            updateTomorrowClassesCount();
+            updateStudentDuesCount();
+        }
+
+        // Share Function
+        function shareApp() {
+            const shareData = {
+                title: 'TeacherHub',
+                text: 'Check out this amazing TeacherHub application!',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).then(() => {
+                    showNotification('Shared successfully!');
+                }).catch(() => {
+                    fallbackShare();
+                });
+            } else {
+                fallbackShare();
+            }
+        }
+
+        function fallbackShare() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                showNotification('Link copied to clipboard!');
+            }).catch(() => {
+                alert('Share URL: ' + url);
+            });
+        }
+
+        // Notification Function
+        function showNotification(message, playSound = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('active');
+
+            if (playSound) {
+                const sound = document.getElementById('notificationSound');
+                sound.play().catch(e => console.log('Audio play failed:', e));
+            }
+
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
